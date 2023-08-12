@@ -1,0 +1,59 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: cursive;
+    width: 100vw;
+    height: 100vh;
+}
+
+.wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30vw;
+    height: 50vh;
+}
+
+.custom-input {
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 0.4rem;
+    background-color: white;
+    color: black;
+    margin-top: 0.5rem;
+}
+
+
+.btn {
+    border: 1px solid white;
+    border-radius: 4px;
+    padding: 0.4rem;
+    background-color: white;
+    color: black;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    align-self: center;
+}
+
+.badge {
+    background-color: #f44336;
+    color: white;
+    padding: 0.4rem;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+    align-self: center;
+}

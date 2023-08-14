@@ -1,11 +1,13 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { axios } from "axios";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 
 
 export default function SignupPage() {
+    const router = useRouter();
 
     const [user, setUser] = useState({
         email: "",
@@ -13,9 +15,31 @@ export default function SignupPage() {
         username: ""
     })
 
+    const [disabledButton, setDisabledButton] = useState(true)
+    const [loading, setLoading] = useState(false)
+
     const onSignUp = async () => {
+        try {
+            setLoading(true);
+            const response = await axios.post("/api/users/signup", user)
+            console.log("success " + response.data)
+            router.push("/login")
+
+        } catch (error: any) {
+            console.log("failed " + error.message)
+            toast.error(error.message)
+        } finally {
+            setLoading(false)
+        }
     }
 
+    useEffect(() => {
+        if (user.email.length > 0 && user.password.length > 0 && user.username.length > 0) {
+            setDisabledButton(false)
+        } else {
+            setDisabledButton(true)
+        }
+    }, [user])
 
 
     return (
@@ -23,7 +47,7 @@ export default function SignupPage() {
             <h1 style={{
                 "textAlign": "center",
                 "fontFamily": "cursive"
-            }} >Signup</h1>
+            }} >{loading ? "processing..." : "Signup"}</h1>
             <div className="container">
                 <div className="wrapper">
                     <br />
@@ -59,8 +83,8 @@ export default function SignupPage() {
                     />
                     <button
                         onClick={onSignUp}
-                        className="btn"
-                    >Signup</button>
+                        className={disabledButton ? "disabled-btn" : "btn"}
+                    >{disabledButton ? "Enter details" : "Signup"}</button>
                 </div>
                 <p> Already have an account? <Link href="/login" style={{ "color": "purple" }} > Login here</Link>
                 </p>
